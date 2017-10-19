@@ -1,2 +1,2 @@
 # pythonScripts
-Python scripts to optimize game animation pipeline.
+Collection of Python scripts to optimize game animation pipeline.
