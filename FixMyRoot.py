@@ -1,3 +1,6 @@
+'''Realigns the root of the character to the its pelvis and sets a key. 
+This avoids jittering in engine when the character has its root motion enabled.
+'''
 import pymel.core as pm
 
 # create lists for the range of the animation
