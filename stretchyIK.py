@@ -6,7 +6,7 @@ def makeMyNodes(crve, prefix, downAxis, sideAxis1, sideAxis2):
 	pm.shadingNode('curveInfo', asUtility=True, name=prefix+'_CurveInfo') 
 	# Connect curve worldspace into CurveInfo
 	pm.connectAttr(crve+'Shape.worldSpace', prefix+'_CurveInfo.inputCurve')
-    # get original lenght of the curve
+    	# get original lenght of the curve
 	ogLnght = pm.getAttr(prefix+'_CurveInfo.arcLength')
 	# Create multiplyDivide node, rename it "DivideZScale"
 	pm.shadingNode('multiplyDivide', asUtility=True, name=prefix+'_DivideZScale') 
