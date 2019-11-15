@@ -22,7 +22,7 @@ def makeMyNodes(crve, prefix, downAxis, sideAxis1, sideAxis2):
 	# In DivideZScale node attributes, copy original Input 1x into Input 2x, change operation to Divide
 	pm.setAttr(prefix+'_DivideZScale.operation', 2)
 	pm.setAttr (prefix+'_DivideZScale.input2X', ogLnght)
-	# DivideZScale.OutputX into Scale Z in each Joint
+	# DivideZScale.OutputX into Scale  in each Joint
 
 	for j in jnts:
 		pm.connectAttr(prefix+'_DivideZScale.output.outputX', str(j) + '.scale.scale'+downAxis)
