@@ -1,3 +1,10 @@
+'''
+# To run the script:
+jnts = pm.ls(selection=True)
+
+makeMyNodes(crve, prefix, downAxis, sideAxis1, sideAxis2)
+'''
+
 import pymel.core as pm
 
 # function that makes all the nodes for us
@@ -39,9 +46,3 @@ def makeMyNodes(crve, prefix, downAxis, sideAxis1, sideAxis2):
 		pm.connectAttr(prefix+'_stretch_invert_DIV.output.outputX', str(j)+'.scale.scale'+sideAxis1)
 		pm.connectAttr(prefix+'_stretch_invert_DIV.output.outputX', str(j)+'.scale.scale'+sideAxis2)
  
-'''
-# Get joints from selection
-jnts = pm.ls(selection=True)
-
-makeMyNodes(crve, prefix, downAxis, sideAxis1, sideAxis2)
-'''
