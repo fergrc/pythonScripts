@@ -33,7 +33,7 @@ def makeMyNodes(crve, prefix, downAxis, sideAxis1, sideAxis2):
 	pm.connectAttr(prefix+'_DivideZScale.output.outputX', prefix+'_POW_ZY.input1.input1X')
 	# Change operation to power, and input2X to 0.5
 	pm.setAttr(prefix+'_POW_ZY.operation', 3)
-	pm.setAttr (prefix+'_POW_ZY.input2X', -1)
+	pm.setAttr (prefix+'_POW_ZY.input2X', 0.5)
 	# Create another multiplyDivide node, rename it "stretch_invert_DIV"
 	pm.shadingNode('multiplyDivide', asUtility=True, name=prefix+'_stretch_invert_DIV')
 	# Connect POW_ZY.outputX into stretch_invert_DIV.input2X
