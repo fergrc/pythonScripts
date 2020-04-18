@@ -1,0 +1,71 @@
+'''
+compensateNode('curve') for control curves
+compensateNode('joint') for joints
+'''
+
+def compensateNode(type):
+    
+    if type == 'joint':
+        # get selected joint and make sure it's parented to the world
+        jnt = cmds.ls(selection = True)[0]
+        cmds.parent(jnt, world = True)
+        
+        # if it's not a joint, stop function and throw error
+        if cmds.nodeType(jnt) != 'joint':
+            cmds.warning('Not a joint bruh :(')
+            return
+        else: 
+            pass
+        
+        # get translates for joints currently    
+        tx = cmds.getAttr(jnt+'.translateX')
+        ty = cmds.getAttr(jnt+'.translateY')
+        tz = cmds.getAttr(jnt+'.translateZ')
+        
+        # make locator and an empty group
+        loc = cmds.spaceLocator(name = str(jnt)+'_loc')[0]
+        grp = cmds.group(name = str(jnt)+'_grp', world = True, empty = True)
+        
+        # parent joint to locator, locator to group
+        cmds.parent(jnt, loc)
+        cmds.parent(loc, grp)
+        
+        # transfers transform of joint to group, zero joint
+        cmds.setAttr(grp+'.translateX', tx)
+        cmds.setAttr(grp+'.translateY', ty)
+        cmds.setAttr(grp+'.translateZ', tz)
+        
+        cmds.setAttr(jnt+'.translateX', 0)
+        cmds.setAttr(jnt+'.translateY', 0)
+        cmds.setAttr(jnt+'.translateZ', 0)
+        
+        # hide shape of locator
+        cmds.setAttr(loc+'Shape.visibility', 0)
+        
+        # return the top of this hierarchy 
+        return grp
+    
+    elif type == 'curve':
+        # get currently selected curve
+        ctrl = cmds.ls(selection = True)[0]
+        
+        # if it's not a curve, stop function and throw error
+        if cmds.nodeType(ctrl) != 'transform':
+            cmds.warning('Not a curve bruh :(')
+            return
+        else: 
+            pass
+            
+        # duplicate the curve and remove "1" from duplicated name
+        dupCurve = cmds.duplicate(ctrl, name = str(ctrl).rstrip("1")+'_grp')[0]
+
+        cmds.delete(ctrl, constructionHistory = True)
+        cmds.select(ctrl)
+        cmds.select(dupCurve, add = True)
+        cmds.parent(shape = True) # parent duplicate to original's shape node:
+        cmds.pickWalk(type = 'nodes')
+        cmds.delete() # delete that shape node
+        		
+        # return the new group we just made
+        return dupCurve
+    
